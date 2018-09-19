@@ -13,6 +13,17 @@
             </form>
         </div>
 
+        <div>
+            <form id="start-game-form">
+                <p>Wait all your friends join the game. After that click the button bellow</p>
+                <button>Start game</button>
+            </form>
+        </div>
+
+        <div>
+            <p>Your role is: <span id="player-role"></span></p>
+        </div>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -24,6 +35,19 @@
                 var player = document.querySelector('#player');
                 socket.emit('join game', player.value);
             });
+        
+        document
+            .querySelector('#start-game-form')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+                socket.emit('start game');
+            });
+        
+        socket.on('game started', function(role) {
+            document
+                .querySelector('#player-role')
+                .innerHTML = role;
+        });
     </script>
     </body>
 </html>
