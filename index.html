@@ -5,5 +5,21 @@
     </head>
     <body>
         <h1>Welcome to Resistance</h1>
+
+        <div>
+            <form id="join-form">
+                <input id="name" placeholder="What is your name?" />
+                <button>Join the game</button>
+            </form>
+        </div>
+
+    <script>
+        document
+            .querySelector('#join-form')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Connects to server using web socket
+            });
+    </script>
     </body>
 </html>
