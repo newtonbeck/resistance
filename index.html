@@ -8,17 +8,21 @@
 
         <div>
             <form id="join-form">
-                <input id="name" placeholder="What is your name?" />
+                <input id="player" placeholder="What is your name?" />
                 <button>Join the game</button>
             </form>
         </div>
 
+    <script src="/socket.io/socket.io.js"></script>
     <script>
+        var socket = io();
+
         document
             .querySelector('#join-form')
             .addEventListener('submit', function(e) {
                 e.preventDefault();
-                // Connects to server using web socket
+                var player = document.querySelector('#player');
+                socket.emit('join game', player.value);
             });
     </script>
     </body>

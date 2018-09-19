@@ -1,12 +1,23 @@
-var express = require('express');
-var app = express();
-var http = require('http');
-var server = http.Server(app);
+var app = require('express')();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.get('/', function(req, res) {
+var game = {
+    players: {
+
+    }
+};
+
+app.get('/', function(_, res) {
     res.sendFile(__dirname + '/index.html');
 });
 
-server.listen(3000, function() {
+io.on('connection', function(socket) {
+    socket.on('join game', function(player) {
+        game.players[socket.id] = player;
+    });
+});
+
+http.listen(3000, function() {
     console.log('Server listening on *:3000');
 });
