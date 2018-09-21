@@ -22,6 +22,28 @@
 
         <div>
             <p>Your role is: <span id="player-role"></span></p>
+
+            <button id="going-on-a-mission">I'm going on a mission</button>
+        </div>
+
+        <div>
+            <form id="voting-form">
+                <label>
+                    <input type="radio" value="success" id="success-radio" />
+                    Success
+                </label>
+                <label>
+                    <input type="radio" value="failure" id="failure-radio" />
+                    Failure
+                </label>
+                <button>Vote</button>
+            </form>
+        </div>
+
+        <div id="voting-result">
+            <ul>
+
+            </ul>
         </div>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -48,6 +70,22 @@
                 .querySelector('#player-role')
                 .innerHTML = role;
         });
+
+        document
+            .querySelector('#voting-form')
+            .addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const success = document.querySelector('#success-radio').checked;
+
+                socket.emit('voting', { success: success});
+            });
+        
+        socket.on('voting result', function(success) {
+            document
+                .querySelector('#voting-result ul')
+                .innerHTML += "<li>" + (success.success ? "Sucesso" : "Fracasso") + "</li>";
+        })
     </script>
     </body>
 </html>

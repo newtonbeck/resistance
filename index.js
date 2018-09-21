@@ -95,6 +95,10 @@ io.on('connection', function(socket) {
                 }
             });
     });
+
+    socket.on('voting', function(success) {
+        io.emit('voting result', success);
+    });
 });
 
 http.listen(3000, function() {
