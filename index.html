@@ -15,7 +15,7 @@
         </nav>
 
         </div>
-        <div class="container" style="display: none">
+        <div class="container">
             <h3>It's your chance to join the resistance!</h3>
 
             <form id="join-form">
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" style="display: none">
             <form id="voting-form">
                 <h3>Vote for mission's success or failure</h3>
                 <p>
@@ -68,16 +68,23 @@
                     </label>
                 </p>
                 <button class="btn waves-effect waves-light">
-                        Vote
-                        <i class="material-icons right">send</i>
-                    </button>
+                    Vote
+                    <i class="material-icons right">send</i>
+                </button>
             </form>
         </div>
 
-        <div style="display: none" id="voting-result">
-            <ul>
-
+        <div class="container" id="voting-result" style="display: none">
+            <ul class="collection">
+                <li class="collection-item">Success</li>
+                <li class="collection-item">Success</li>
+                <li class="collection-item">Success</li>
             </ul>
+
+            <button class="btn waves-effect waves-light">
+                Go to next round
+                <i class="material-icons right">send</i>
+            </button>
         </div>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -119,7 +126,7 @@
         socket.on('voting result', function(success) {
             document
                 .querySelector('#voting-result ul')
-                .innerHTML += "<li>" + (success.success ? "Sucesso" : "Fracasso") + "</li>";
+                .innerHTML += "<li class='collection-item'>" + (success.success ? "Sucesso" : "Fracasso") + "</li>";
         })
     </script>
     </body>
