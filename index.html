@@ -79,11 +79,7 @@
         </div>
 
         <div class="container" id="voting-result" style="display: none">
-            <ul class="collection">
-                <li class="collection-item">Success</li>
-                <li class="collection-item">Success</li>
-                <li class="collection-item">Success</li>
-            </ul>
+            <ul class="collection"></ul>
 
             <button class="btn waves-effect waves-light">
                 Go to next round
@@ -201,12 +197,19 @@
         socket.on('voting result', function(success) {
             document
                 .querySelector('#voting-result ul')
-                .innerHTML += "<li class='collection-item'>" + (success.success ? "Sucesso" : "Fracasso") + "</li>";
+                .innerHTML += "<li class='collection-item'>" + (success.success ? "Success" : "Failure") + "</li>";
 
-            document
-                .querySelector('#voting-result')
-                .style
-                .display = 'block';
+            if (document.querySelector('#voting-form').parentElement.style.display === 'none') {
+                document
+                    .querySelector('#game-main-screen')
+                    .style
+                    .display = 'none';
+
+                document
+                    .querySelector('#voting-result')
+                    .style
+                    .display = 'block';
+            }
         })
     </script>
     </body>
