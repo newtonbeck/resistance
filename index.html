@@ -27,33 +27,50 @@
             </form>
         </div>
 
-        <div class="container">
+        <div class="container" style="display: none">
             <form id="start-game-form">
                 <h3>Wait all your friends join the game. After that click the button bellow</h3>
                 <button class="btn waves-effect waves-light">
-                        Start game
-                        <i class="material-icons right">send</i>
-                    </button>
+                    Start game
+                    <i class="material-icons right">send</i>
+                </button>
             </form>
         </div>
 
-        <div style="display: none">
-            <p>Your role is: <span id="player-role"></span></p>
-
-            <button id="going-on-a-mission">I'm going on a mission</button>
+        <div class="container" style="display: none">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="http://digitalspyuk.cdnds.net/17/01/1600x800/landscape-1483451702-princess-leia-1.jpg" />
+                        <span class="card-title" id="player-role">Your role here</span>
+                        <a id="going-on-a-mission" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                    </div>
+                    <div class="card-content">
+                        <p>As a resistance character...</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div style="display: none">
+        <div class="container">
             <form id="voting-form">
-                <label>
-                    <input type="radio" value="success" id="success-radio" />
-                    Success
-                </label>
-                <label>
-                    <input type="radio" value="failure" id="failure-radio" />
-                    Failure
-                </label>
-                <button>Vote</button>
+                <h3>Vote for mission's success or failure</h3>
+                <p>
+                    <label>
+                        <input type="radio" name="success" id="success-radio" />
+                        <span>Success</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" name="success" id="failure-radio" />
+                        <span>Failure</span>
+                    </label>
+                </p>
+                <button class="btn waves-effect waves-light">
+                        Vote
+                        <i class="material-icons right">send</i>
+                    </button>
             </form>
         </div>
 
