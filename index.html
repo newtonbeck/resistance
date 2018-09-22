@@ -81,7 +81,7 @@
         <div class="container" id="voting-result" style="display: none">
             <ul class="collection"></ul>
 
-            <button class="btn waves-effect waves-light">
+            <button id="next-round" class="btn waves-effect waves-light">
                 Go to next round
                 <i class="material-icons right">send</i>
             </button>
@@ -210,7 +210,25 @@
                     .style
                     .display = 'block';
             }
-        })
+        });
+
+        document
+            .querySelector('#next-round')
+            .addEventListener('click', function(e) {
+                document
+                    .querySelector('#voting-result ul')
+                    .innerHTML = '';
+
+                document
+                    .querySelector('#voting-result')
+                    .style
+                    .display = 'none';
+
+                document
+                    .querySelector('#game-main-screen')
+                    .style
+                    .display = 'block';
+            });
     </script>
     </body>
 </html>
