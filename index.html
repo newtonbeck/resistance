@@ -15,7 +15,7 @@
         </nav>
 
         </div>
-        <div class="container">
+        <div class="container" style='display: block'>
             <h3>It's your chance to join the resistance!</h3>
 
             <form id="join-form">
@@ -67,9 +67,13 @@
                         <span>Failure</span>
                     </label>
                 </p>
-                <button class="btn waves-effect waves-light">
+                <button type="submit" class="btn waves-effect waves-light">
                     Vote
                     <i class="material-icons right">send</i>
+                </button>
+                <button type="button" id="back-to-main-screen" class="btn waves-effect waves-light red">
+                    Back
+                    <i class="material-icons right">arrow_back</i>
                 </button>
             </form>
         </div>
@@ -98,11 +102,12 @@
                 e.preventDefault();
                 var player = document.querySelector('#player');
                 socket.emit('join game', player.value);
-                this.parentElement.style = 'display: none';
+                this.parentElement.style.display = 'none';
                 document
                     .querySelector('#start-game-form')
                     .parentElement
-                    .style = 'display: block';
+                    .style
+                    .display = 'block';
             });
         
         document
@@ -130,10 +135,12 @@
             document
                 .querySelector('#start-game-form')
                 .parentElement
-                .style = 'display: none';
+                .style
+                .display = 'none';
             document
                 .querySelector('#game-main-screen')
-                .style = 'display: block';
+                .style
+                .display = 'block';
         });
 
         document
@@ -144,6 +151,17 @@
                 const success = document.querySelector('#success-radio').checked;
 
                 socket.emit('voting', { success: success});
+
+                document
+                    .querySelector('#voting-form')
+                    .parentElement
+                    .style
+                    .display = 'none';
+                
+                document
+                    .querySelector('#voting-result')
+                    .style
+                    .display = 'block';
             });
 
         document
@@ -153,18 +171,42 @@
 
                 document
                     .querySelector('#game-main-screen')
-                    .style = 'display: none';
+                    .style
+                    .display = 'none';
 
                 document
                     .querySelector('#voting-form')
                     .parentElement
-                    .style = 'display: block';
+                    .style
+                    .display = 'block';
+            });
+
+        document
+            .querySelector('#back-to-main-screen')
+            .addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document
+                    .querySelector('#game-main-screen')
+                    .style
+                    .display = 'block';
+
+                document
+                    .querySelector('#voting-form')
+                    .parentElement
+                    .style
+                    .display = 'none';
             });
         
         socket.on('voting result', function(success) {
             document
                 .querySelector('#voting-result ul')
                 .innerHTML += "<li class='collection-item'>" + (success.success ? "Sucesso" : "Fracasso") + "</li>";
+
+            document
+                .querySelector('#voting-result')
+                .style
+                .display = 'block';
         })
     </script>
     </body>
