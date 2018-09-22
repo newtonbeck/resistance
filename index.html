@@ -37,11 +37,11 @@
             </form>
         </div>
 
-        <div class="container" style="display: none">
+        <div class="container" style="display: none" id="game-main-screen">
             <div class="col s12">
                 <div class="card">
                     <div class="card-image">
-                        <img src="http://digitalspyuk.cdnds.net/17/01/1600x800/landscape-1483451702-princess-leia-1.jpg" />
+                        <img id='role-image' src="http://digitalspyuk.cdnds.net/17/01/1600x800/landscape-1483451702-princess-leia-1.jpg" />
                         <span class="card-title" id="player-role">Your role here</span>
                         <a id="going-on-a-mission" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
                     </div>
@@ -98,6 +98,11 @@
                 e.preventDefault();
                 var player = document.querySelector('#player');
                 socket.emit('join game', player.value);
+                this.parentElement.style = 'display: none';
+                document
+                    .querySelector('#start-game-form')
+                    .parentElement
+                    .style = 'display: block';
             });
         
         document
@@ -110,7 +115,25 @@
         socket.on('game started', function(role) {
             document
                 .querySelector('#player-role')
-                .innerHTML = role;
+                .innerHTML = role.toUpperCase();
+
+            if (role === 'resistance') {
+                document
+                    .querySelector('#role-image')
+                    .src = 'http://digitalspyuk.cdnds.net/17/01/1600x800/landscape-1483451702-princess-leia-1.jpg';
+            } else {
+                document
+                    .querySelector('#role-image')
+                    .src = 'https://starwarsblog.starwars.com/wp-content/uploads/2014/11/lando-deals-1536x816.jpg';
+            }
+
+            document
+                .querySelector('#start-game-form')
+                .parentElement
+                .style = 'display: none';
+            document
+                .querySelector('#game-main-screen')
+                .style = 'display: block';
         });
 
         document
@@ -121,6 +144,21 @@
                 const success = document.querySelector('#success-radio').checked;
 
                 socket.emit('voting', { success: success});
+            });
+
+        document
+            .querySelector('#going-on-a-mission')
+            .addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document
+                    .querySelector('#game-main-screen')
+                    .style = 'display: none';
+
+                document
+                    .querySelector('#voting-form')
+                    .parentElement
+                    .style = 'display: block';
             });
         
         socket.on('voting result', function(success) {
